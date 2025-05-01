@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Namazu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="background-music" src="Musique/MusiqueDeFond.mp3" loop autoplay></audio>
+
+    <div id="canvacontrol">
+        <div id="loader">Chargement du modèle...</div>
+
+        <div id="buttons">
+            <button class="model-btn active" data-index="0" title="Modèle 1">
+                <img src="Images/Namazu.png" alt="Modèle 1" />
+            </button>
+            <button class="model-btn" data-index="1" title="Modèle 2">
+                <img src="Images/NamazuFestif.jpg" alt="Modèle 2" />
+            </button>
+            <button class="model-btn" data-index="2" title="Modèle 3">
+                <img src="Images/NamazuDoré.jpg" alt="Modèle 3" />
+            </button>
+            <button id="mute-btn">🔊</button>
+        </div>
+
+        <div id="rotationSpeedControl">
+            Rotation speed:
+            <input type="range" id="speedSlider" min="0" max="15" step="0.02" value="0.5" />
+            <span id="speedValue">0.50</span>
+        </div>
+    </div>
+
+    <div id="credits-section">
+        <div id="credits-content">
+            <p>Made by</p>
+            <div id="credits-name">
+            <p>Haruno Shinobana (Spriggan) & Sora Chipatama (Sagittarius)</p>
+        </div>
+            <div id="credits-img">
+                <img src="Images/credits.png" alt="Image placeholder" class="credits-img" />
+                <img src="Images/credits.png" alt="Image placeholder" class="credits-img" />
+            </div>
+        </div>
+        <div class="legal-section">
+            <p>
+                The 3D models and the music used on this site are the property of © SQUARE ENIX CO., LTD.<br>
+                This is a non-commercial fan project and is not affiliated with or endorsed by Square Enix.<br>
+                All Final Fantasy trademarks and related content belong to Square Enix.<br>
+                Content will be removed immediately upon request by Square Enix.
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -124,7 +124,7 @@ canvas {
     gap: 5rem;
     opacity: 1;
     z-index: 5;
-    background-color: red;
+    background-color: black;
     padding-top: 10rem;
     padding-bottom: 10rem;
 }
@@ -172,3 +172,5 @@ canvas {
     font-size: 0.95em;
     margin: 10px;
 }
+
+

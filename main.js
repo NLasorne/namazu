@@ -110,6 +110,8 @@ window.addEventListener("resize", () => {
 // Audio mute logic
 const audio = document.getElementById('background-music');
 const muteBtn = document.getElementById('mute-btn');
+audio.volume = 0.2; // Valeur entre 0 (silence) et 1 (volume max)
+
 
 window.addEventListener('click', function playOnce() {
     audio.play().catch(() => {});
@@ -132,5 +134,4 @@ muteBtn.addEventListener('click', function () {
 });
 
 updateMuteIcon();
-
 

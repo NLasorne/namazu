@@ -1,3 +1,4 @@
+// === EXISTANT ===
 const _box = new THREE.Box3();
 const _size = new THREE.Vector3();
 const _center = new THREE.Vector3();
@@ -33,7 +34,14 @@ scene.add(directionalLight);
 
 const loader = new THREE.GLTFLoader();
 let model = null;
-const modelPaths = ["Modèles/Namazu de base.glb", "Modèles/NamazuFestif.glb", "Modèles/NamazuDore.glb"];
+const modelPaths = [
+    "Modèles/Namazu de base.glb",
+    "Modèles/NamazuFestif.glb",
+    "Modèles/NamazuDore.glb",
+    "Modèles/Tomberry.glb",
+    "Modèles/Lopo.glb",
+    "Modèles/Mog.glb"
+];
 
 function loadModel(index) {
     const loaderDiv = document.getElementById("loader");
@@ -83,15 +91,80 @@ function loadModel(index) {
 // Initial model
 loadModel(0);
 
-// Model buttons
-document.querySelectorAll('.model-btn').forEach(btn => {
-    btn.addEventListener('click', function () {
-        document.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
+// ===== MENU DÉROULANT POUR MODÈLES ===== //
+const modelMenuToggle = document.getElementById('model-menu-toggle');
+const modelMenu = document.getElementById('model-menu');
+
+modelMenuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (modelMenu.style.display === "block") {
+        modelMenu.style.display = "none";
+        modelMenuToggle.textContent = "Model ▼";
+    } else {
+        modelMenu.style.display = "block";
+        modelMenuToggle.textContent = "Model ▲";
+    }
+});
+
+modelMenu.querySelectorAll('.model-btn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        modelMenu.querySelectorAll('.model-btn').forEach(b => b.classList.remove('active'));
         this.classList.add('active');
+
         loadModel(parseInt(this.getAttribute('data-index')));
+        modelMenu.style.display = "none";
+        modelMenuToggle.textContent = "Model ▼";
     });
 });
 
+document.addEventListener('click', (event) => {
+    if (modelMenu.style.display !== "none") {
+        modelMenu.style.display = "none";
+        modelMenuToggle.textContent = "Model ▼";
+    }
+}, false);
+
+const firstModelBtn = modelMenu.querySelector('.model-btn[data-index="0"]');
+if(firstModelBtn) firstModelBtn.classList.add('active');
+
+// ===== MENU DÉROULANT POUR background ===== //
+const bgMenuToggle = document.getElementById('bg-menu-toggle');
+const bgMenu = document.getElementById('bg-menu');
+
+bgMenuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (bgMenu.style.display === "block") {
+        bgMenu.style.display = "none";
+        bgMenuToggle.textContent = "Background ▼";
+    } else {
+        bgMenu.style.display = "block";
+        bgMenuToggle.textContent = "Background ▲";
+    }
+});
+
+document.addEventListener('click', () => {
+    if (bgMenu.style.display !== "none") {
+        bgMenu.style.display = "none";
+        bgMenuToggle.textContent = "Background ▼";
+    }
+});
+
+bgMenu.querySelectorAll('.bg-btn').forEach(btn => {
+    btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const imgPath = this.getAttribute('data-bg');
+        document.body.style.backgroundImage = `url('${imgPath}')`;
+
+        bgMenu.querySelectorAll('.bg-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+
+        bgMenu.style.display = "none";
+        bgMenuToggle.textContent = "Background ▼";
+    });
+});
+
+// ===== ANIMATION ===== //
 const clock = new THREE.Clock();
 function animate() {
     const delta = clock.getDelta();
@@ -107,11 +180,10 @@ window.addEventListener("resize", () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-// Audio mute logic
+// ===== AUDIO ===== //
 const audio = document.getElementById('background-music');
 const muteBtn = document.getElementById('mute-btn');
-audio.volume = 0.2; // Valeur entre 0 (silence) et 1 (volume max)
-
+audio.volume = 0.2;
 
 window.addEventListener('click', function playOnce() {
     audio.play().catch(() => {});
@@ -134,4 +206,3 @@ muteBtn.addEventListener('click', function () {
 });
 
 updateMuteIcon();
-
